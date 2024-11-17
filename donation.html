@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Eco Sphere</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .donation-form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: -5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .impact {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .impact h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-items {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .impact-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 1rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .impact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .impact-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-container {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 1s ease;
+        }
+
+        .testimonials {
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial .author {
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .impact-items {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Support Our Eco Sphere</h1>
+            <p>Your donation helps us protect and preserve our planet's ecosystems</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="donation-form" id="donationForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Donation Amount</label>
+                <select id="amount" name="amount" required>
+                    <option value="10">$10</option>
+                    <option value="25">$25</option>
+                    <option value="50">$50</option>
+                    <option value="100">$100</option>
+                    <option value="custom">Custom Amount</option>
+                </select>
+            </div>
+            <div class="form-group" id="customAmountGroup" style="display: none;">
+                <label for="customAmount">Custom Amount</label>
+                <input type="number" id="customAmount" name="customAmount" min="1">
+            </div>
+            <button type="submit">Donate Now</button>
+        </form>
+
+        <div class="impact">
+            <h2>Your Impact</h2>
+            <div class="impact-items">
+                <div class="impact-item">
+                    <h3>Plant Trees</h3>
+                    <p>Help us plant more trees and restore forests</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Clean Water</h3>
+                    <p>Provide clean water to communities in need</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Protect Wildlife</h3>
+                    <p>Support efforts to protect endangered species</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <h2>Help Us Reach Our Goal</h2>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <p>$<span id="currentAmount">0</span> raised of $10,000 goal</p>
+        </div>
+
+        <div class="testimonials">
+            <h2>What Our Supporters Say</h2>
+            <div class="testimonial">
+                <p>"Donating to Eco Sphere has been incredibly rewarding. I can see the direct impact of my contributions on our planet."</p>
+                <span class="author">- Tanishk lasan</span>
+            </div>
+            <div class="testimonial">
+                <p>"I'm proud to support an organization that's making real changes in environmental conservation. Every donation counts!"</p>
+                <span class="author">- Satwik pro</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('donationForm');
+        const amountSelect = document.getElementById('amount');
+        const customAmountGroup = document.getElementById('customAmountGroup');
+        const customAmountInput = document.getElementById('customAmount');
+        const progressBar = document.getElementById('progressBar');
+        const currentAmountSpan = document.getElementById('currentAmount');
+
+        let currentAmount = 0;
+        const goal = 10000;
+
+        amountSelect.addEventListener('change', (e) => {
+            if (e.target.value === 'custom') {
+                customAmountGroup.style.display = 'block';
+            } else {
+                customAmountGroup.style.display = 'none';
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let donationAmount = parseInt(amountSelect.value);
+            
+            if (amountSelect.value === 'custom') {
+                donationAmount = parseInt(customAmountInput.value);
+            }
+
+            if (donationAmount) {
+                currentAmount += donationAmount;
+                updateProgress();
+                form.reset();
+                alert(`Thank you for your donation of $${donationAmount}!`);
+            }
+        });
+
+        function updateProgress() {
+            const percentage = (currentAmount / goal) * 100;
+            progressBar.style.width = `${Math.min(percentage, 100)}%`;
+            currentAmountSpan.textContent = currentAmount;
+        }
+
+        // Initial progress update
+        updateProgress();
+    </script>
+</body>
+</html>

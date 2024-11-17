@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSphere Rewards - Nature's Bounty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #4CAF50;
+            --accent-color: #FFC107;
+            --background-color: #E8F5E9;
+            --text-color: #1B5E20;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .eco-credits {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #ecoCredits {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .reward-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .reward-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .reward-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .reward-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .reward-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .reward-cost {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .reward-item button {
+            background-color: var(--secondary-color);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reward-item button:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .reward-item button:disabled {
+            background-color: #9E9E9E;
+            cursor: not-allowed;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.5s;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #certificate {
+            border: 3px solid var(--primary-color);
+            padding: 2rem;
+            margin-top: 2rem;
+            background-color: #F1F8E9;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #certificate::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--secondary-color), transparent 30%);
+            animation: rotate 10s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .nature-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .leaf {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            opacity: 0.2;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .cloud {
+            width: 100px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud::after {
+            width: 70px;
+            height: 70px;
+            top: -35px;
+            right: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #rewardVideo {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EcoSphere Rewards</h1>
+        <div class="eco-credits">
+            Your EcoCredits: <span id="ecoCredits">1000</span>
+        </div>
+        <ul class="reward-list">
+            <li class="reward-item">
+                <div class="reward-info">
+                    <span class="reward-icon">🌳</span>
+                    <div>
+                        <div class="reward-name">Plant a Tree</div>
+                        <div class="reward-cost">100 EcoCredits</div>
+                    </div>
+                </div>
+                <button onclick="redeemReward('Plant a Tree', 100)">Redeem</button>
+            </li>
+            <li class="reward-item">
+                <div class="reward-info">
+                    <span class="reward-icon">☀️</span>
+                    <div>
+                        <div class="reward-name">Donate Solar Panel</div>
+                        <div class="reward-cost">500 EcoCredits</div>
+                    </div>
+                </div>
+                <button onclick="redeemReward('Donate Solar Panel', 500)">Redeem</button>
+            </li>
+            <li class="reward-item">
+                <div class="reward-info">
+                    <span class="reward-icon">🐾</span>
+                    <div>
+                        <div class="reward-name">Protect Wildlife</div>
+                        <div class="reward-cost">300 EcoCredits</div>
+                    </div>
+                </div>
+                <button onclick="redeemReward('Protect Wildlife', 300)">Redeem</button>
+            </li>
+        </ul>
+    </div>
+
+    <div id="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Congratulations!</h2>
+            <p id="rewardMessage"></p>
+            <video id="rewardVideo" width="100%" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div id="certificate">
+                <h3>Certificate of Achievement</h3>
+                <p>This certifies that</p>
+                <p><strong>EcoSphere Champion</strong></p>
+                <p>has successfully redeemed the reward:</p>
+                <p id="certificateReward"></p>
+                <p>Date: <span id="certificateDate"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ecoCredits = 1000;
+        const ecoCreditsElement = document.getElementById('ecoCredits');
+        const modal = document.getElementById('modal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const rewardMessage = document.getElementById('rewardMessage');
+        const rewardVideo = document.getElementById('rewardVideo');
+        const certificateReward = document.getElementById('certificateReward');
+        const certificateDate = document.getElementById('certificateDate');
+
+        function updateEcoCredits() {
+            ecoCreditsElement.textContent = ecoCredits;
+            document.querySelectorAll('.reward-item button').forEach(button => {
+                const cost = parseInt(button.parentElement.querySelector('.reward-cost').textContent);
+                button.disabled = ecoCredits < cost;
+            });
+        }
+
+        function redeemReward(reward, cost) {
+            if (ecoCredits >= cost) {
+                ecoCredits -= cost;
+                updateEcoCredits();
+                showRewardModal(reward);
+            } else {
+                alert("Not enough EcoCredits!");
+            }
+        }
+
+        function showRewardModal(reward) {
+            rewardMessage.textContent = `You have successfully redeemed: ${reward}`;
+            certificateReward.textContent = reward;
+            certificateDate.textContent = new Date().toLocaleDateString();
+
+            // Set video source based on the reward
+            switch(reward) {
+                case 'Plant a Tree':
+                    rewardVideo.src = "https://example.com/plant-tree-video.mp4";
+                    break;
+                case 'Donate Solar Panel':
+                    rewardVideo.src = "https://example.com/solar-panel-video.mp4";
+                    break;
+                case 'Protect Wildlife':
+                    rewardVideo.src = "https://example.com/protect-wildlife-video.mp4";
+                    break;
+            }
+
+            modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function createNatureElements() {
+            const container = document.querySelector('.container');
+            const elements = ['leaf', 'cloud'];
+            const numElements = 10;
+
+            for (let i = 0; i < numElements; i++) {
+                const element = document.createElement('div');
+                element.classList.add('nature-element', elements[Math.floor(Math.random() * elements.length)]);
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(element);
+            }
+        }
+
+        createNatureElements();
+        updateEcoCredits();
+    </script>
+</body>
+</html>

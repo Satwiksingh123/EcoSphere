@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Friendly Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --background-color: #1b5e20;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50'%3E%3Cpath d='M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20C19,20,22,3,22,3,21,5,14,5.25,9,6.25S2,11.5,2,13.5a6.22,6.22,0,0,0,1.75,3.75C7,8,17,8,17,8Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50%, 50%) rotate(90deg); }
+            50% { transform: translate(0, 100%) rotate(180deg); }
+            75% { transform: translate(-50%, 50%) rotate(270deg); }
+        }
+
+        .form-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        h2 {
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus + i {
+            color: var(--primary-color);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: var(--secondary-color);
+            box-shadow: 0 0 20px rgba(139, 195, 74, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 24px;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1) rotate(360deg);
+            background: var(--accent-color);
+        }
+
+        .switch {
+            margin-top: 30px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .switch a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .switch a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error { animation: shake 0.5s; }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                height: auto;
+                min-height: 550px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="background-animation"></div>
+        <div class="form-container">
+            <h2 id="formTitle">Eco Login</h2>
+            <form id="authForm">
+                <div class="input-group" id="nameGroup" style="display: none;">
+                    <input type="text" placeholder="Full Name" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-eye password-toggle"></i>
+                </div>
+                <button type="submit">Go Green</button>
+            </form>
+            <div class="social-login">
+                <div class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-google"></i>
+                </div>
+            </div>
+            <div class="switch">
+                <p>New to eco-friendly living? <a href="#" id="switchForm">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formTitle = document.getElementById('formTitle');
+        const authForm = document.getElementById('authForm');
+        const nameGroup = document.getElementById('nameGroup');
+        const switchFormLink = document.getElementById('switchForm');
+        const passwordToggle = document.querySelector('.password-toggle');
+        const passwordInput = document.querySelector('input[type="password"]');
+        let isLogin = true;
+
+        // Background animation
+        const backgroundAnimation = document.querySelector('.background-animation');
+        const leafColors = ['#4CAF50', '#8BC34A', '#CDDC39', '#7CB342', '#33691E'];
+
+        for (let i = 0; i < 10; i++) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.width = `${Math.random() * 30 + 20}px`;
+            leaf.style.height = leaf.style.width;
+            leaf.style.filter = `hue-rotate(${Math.random() * 90 - 45}deg)`;
+            leaf.style.opacity = `${Math.random() * 0.6 + 0.4}`;
+            leaf.style.top = `${Math.random() * 100}%`;
+            leaf.style.left = `${Math.random() * 100}%`;
+            leaf.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            leaf.style.animationDelay = `${Math.random() * 5}s`;
+            backgroundAnimation.appendChild(leaf);
+        }
+
+        // Form switch animation
+        switchFormLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLogin = !isLogin;
+            formTitle.textContent = isLogin ? 'Eco Login' : 'Eco Sign Up';
+            nameGroup.style.display = isLogin ? 'none' : 'block';
+            authForm.querySelector('button').textContent = isLogin ? 'Go Green' : 'Join Eco Community';
+            switchFormLink.textContent = isLogin ? 'Sign up' : 'Login';
+            switchFormLink.previousElementSibling.textContent = isLogin ? "New to eco-friendly living? " : "Already part of our eco community? ";
+            
+            // Add animation
+            authForm.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                authForm.style.animation = '';
+            }, 500);
+        });
+
+        // Password toggle
+        passwordToggle.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            passwordToggle.classList.toggle('fa-eye');
+            passwordToggle.classList.toggle('fa-eye-slash');
+        });
+
+        // Form submission
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your authentication logic here
+            console.log(isLogin ? 'Eco Login submitted' : 'Eco Signup submitted');
+            
+            // Simulating loading state
+            const button = authForm.querySelector('button');
+            button.disabled = true;
+            button.textContent = 'Processing...';
+            
+            setTimeout(() => {
+                button.disabled = false;
+                button.textContent = isLogin ? 'Go Green' : 'Join Eco Community';
+                // Show success message (you can replace this with your actual logic)
+                alert(isLogin ? 'Welcome back, eco warrior!' : 'Welcome to our eco-friendly community!');
+            }, 2000);
+        });
+
+        // Input focus effects
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+            input.addEventListener('blur', () => {
+                if (input.value === '') {
+                    input.parentElement.classList.remove('focused');
+                }
+            });
+        });
+
+        // Social login hover effects
+        const socialIcons = document.querySelectorAll('.social-icon');
+        socialIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                icon.style.transform = 'scale(1.1) rotate(360deg)';
+            });
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

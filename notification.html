@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSphere Notifications</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --background-color: #E8F5E9;
+            --text-color: #1B5E20;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .notification-list {
+            list-style-type: none;
+        }
+
+        .notification-item {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .notification-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-item p {
+            font-size: 0.9rem;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            opacity: 0.5;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(45deg); }
+            50% { transform: translate(20px, -20px) rotate(60deg); }
+        }
+
+        .add-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .add-notification:hover {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        #notification-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #notification-form input,
+        #notification-form textarea {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #notification-form button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EcoSphere Notifications</h1>
+        <ul class="notification-list" id="notification-list">
+            <!-- Notifications will be dynamically added here -->
+        </ul>
+    </div>
+
+    <button class="add-notification" id="add-notification">+</button>
+
+    <div class="modal" id="notification-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Notification</h2>
+            <form id="notification-form">
+                <input type="text" id="notification-title" placeholder="Notification Title" required>
+                <textarea id="notification-message" placeholder="Notification Message" required></textarea>
+                <button type="submit">Add Notification</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Generate random leaves
+        for (let i = 0; i < 10; i++) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = `${Math.random() * 100}%`;
+            leaf.style.top = `${Math.random() * 100}%`;
+            leaf.style.animationDelay = `${Math.random() * 10}s`;
+            document.body.appendChild(leaf);
+        }
+
+        // Notification functionality
+        const notificationList = document.getElementById('notification-list');
+        const addNotificationBtn = document.getElementById('add-notification');
+        const modal = document.getElementById('notification-modal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const notificationForm = document.getElementById('notification-form');
+
+        const notifications = [
+            { title: "Tree Planting Event", message: "Join us this Saturday for a community tree planting event!" },
+            { title: "Eco Challenge Completed", message: "Congratulations! You've completed the 'Zero Waste Week' challenge." },
+            { title: "New Badge Unlocked", message: "You've earned the 'Green Thumb' badge for your gardening efforts!" }
+        ];
+
+        function displayNotifications() {
+            notificationList.innerHTML = '';
+            notifications.forEach((notification, index) => {
+                const li = document.createElement('li');
+                li.classList.add('notification-item');
+                li.innerHTML = `
+                    <h3>${notification.title}</h3>
+                    <p>${notification.message}</p>
+                `;
+                li.addEventListener('click', () => removeNotification(index));
+                notificationList.appendChild(li);
+            });
+        }
+
+        function addNotification(title, message) {
+            notifications.unshift({ title, message });
+            displayNotifications();
+        }
+
+        function removeNotification(index) {
+            notifications.splice(index, 1);
+            displayNotifications();
+        }
+
+        addNotificationBtn.onclick = () => modal.style.display = "block";
+        closeBtn.onclick = () => modal.style.display = "none";
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        notificationForm.onsubmit = (e) => {
+            e.preventDefault();
+            const title = document.getElementById('notification-title').value;
+            const message = document.getElementById('notification-message').value;
+            addNotification(title, message);
+            modal.style.display = "none";
+            notificationForm.reset();
+        }
+
+        displayNotifications();
+    </script>
+</body>
+</html>

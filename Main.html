@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSphere - Gamified Eco-Friendly Living</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"/>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EcoSphere</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#actions">Actions</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="#badges">Badges</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#shop">Eco Shop</a></li>
+                <li><a href="login.html" class="login-btn">LOGIN</a></li>
+                <li><a href="donation.html" class="donate-btn">Donate Now</a></li>
+            </ul>
+        </nav>        
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content container">
+                <h1 class="fade-in">Welcome to EcoSphere</h1>
+                <p class="fade-in">Join the gamified eco-friendly movement and make a real impact on our planet.</p>
+                <a href="#dashboard" class="cta-button fade-in">Start Your Eco Journey</a>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2>About EcoSphere</h2>
+            <p>EcoSphere is a revolutionary platform that gamifies eco-friendly living. Our mission is to inspire and motivate individuals to make sustainable choices in their daily lives, while having fun and competing with friends.</p>
+            <p>By completing eco-friendly actions, participating in challenges, and learning about environmental issues, you can earn EcoCredits, level up, and unlock achievements. Join our growing community of eco-warriors and help create a greener future!</p>
+        </section>
+
+        <section id="dashboard" class="container">
+            <h2>Your EcoDashboard</h2>
+            <div class="dashboard">
+                <div class="stat-box">
+                    <h3>EcoCredits</h3>
+                    <p id="ecoCredits">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Trees Planted</h3>
+                    <p id="treesPlanted">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Plastic Reduced (kg)</h3>
+                    <p id="plasticReduced">0.00</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Carbon Offset (kg)</h3>
+                    <p id="carbonOffset">0.00</p>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="level-progress"></div>
+                </div>
+                <p id="level-indicator">Level 1</p>
+            </div>
+        </section>
+
+        <section id="actions" class="container">
+            <h2>Eco-Friendly Actions</h2>
+            <div class="action-grid">
+                <div class="action-card">
+                    <h3>Cycle to Work</h3>
+                    <p>Reduce your carbon footprint by cycling to work instead of driving.</p>
+                    <button class="action-button" onclick="logAction('cycle')">Log Action</button>
+                </div>
+                <div class="action-card">
+                    <h3>Use Reusable Bag</h3>
+                    <p>Reduce plastic waste by using a reusable shopping bag.</p>
+                    <button class="action-button" onclick="logAction('reusable')">Log Action</button>
+                </div>
+                <div class="action-card">
+                    <h3>Plant a Tree</h3>
+                    <p>Contribute to reforestation by planting a tree in your community.</p>
+                    <button class="action-button" onclick="logAction('plant')">Log Action</button>
+                </div>
+                <div class="action-card">
+                    <h3>Compost Waste</h3>
+                    <p>Reduce landfill waste by composting your organic materials.</p>
+                    <button class="action-button" onclick="logAction('compost')">Log Action</button>
+                </div>
+                <div class="action-card">
+                    <h3>Use Solar Energy</h3>
+                    <p>Harness the power of the sun to reduce your carbon footprint.</p>
+                    <button class="action-button" onclick="logAction('solar')">Log Action</button>
+                </div>
+                <div class="action-card">
+                    <h3>Meatless Day</h3>
+                    <p>Reduce your environmental impact by having a day without meat.</p>
+                    <button class="action-button" onclick="logAction('meatless')">Log Action</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="leaderboard" class="container">
+            <h2>Global Leaderboard</h2>
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- Leaderboard items will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="badges" class="container">
+            <h2>Your Eco Badges</h2>
+            <div class="badge-container" id="badgeContainer">
+                <!-- Badges will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="community" class="container">
+            <h2>Community Challenges</h2>
+            <div class="community-challenge">
+                <h3>City-wide Clean-up</h3>
+                <p>Join forces with your community to clean up local parks and streets.</p>
+                <div class="challenge-progress">
+                    <p>Progress: 65%</p>
+                    <div class="challenge-progress-bar">
+                        <div class="challenge-progress-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+                <button class="action-button" onclick="joinChallenge('cleanup')">Join Challenge</button>
+            </div>
+            <div class="community-challenge">
+                <h3>Neighborhood Garden Project</h3>
+                <p>Create a community garden to grow fresh produce and beautify the area.</p>
+                <div class="challenge-progress">
+                    <p>Progress: 30%</p>
+                    <div class="challenge-progress-bar">
+                        <div class="challenge-progress-fill" style="width: 30%;"></div>
+                    </div>
+                </div>
+                <button class="action-button" onclick="joinChallenge('garden')">Join Challenge</button>
+            </div>
+        </section>
+
+        <section id="eco-tips" class="container">
+            <h2>Eco Tips</h2>
+            <div class="eco-tip">
+                <h3>Reduce Water Waste</h3>
+                <p>Fix leaky faucets and take shorter showers to conserve water. Every drop counts!</p>
+            </div>
+            <div class="eco-tip">
+                <h3>Energy-Efficient Lighting</h3>
+                <p>Switch to LED bulbs to reduce energy consumption and lower your electricity bills.</p>
+            </div>
+            <div class="eco-tip">
+                <h3>Sustainable Fashion</h3>
+                <p>Choose second-hand or eco-friendly clothing to reduce the environmental impact of fast fashion.</p>
+            </div>
+        </section>
+
+        <section id="events" class="container">
+            <h2>Upcoming Eco Events</h2>
+            <div class="eco-event">
+                <h3>Earth Day Festival</h3>
+                <p>Join us for a day of eco-friendly activities, workshops, and live music.</p>
+                <div class="event-details">
+                    <span class="event-date">April 22, 2024</span>
+                    <span class="event-location">Central Park</span>
+                </div>
+                <button class="action-button" onclick="registerForEvent('earth-day')">Register</button>
+            </div>
+            <div class="eco-event">
+                <h3>Green Tech Expo</h3>
+                <p>Explore the latest innovations in sustainable technology and renewable energy.</p>
+                <div class="event-details">
+                    <span class="event-date">May 15-17, 2024</span>
+                    <span class="event-location">Convention Center</span>
+                </div>
+                <button class="action-button" onclick="registerForEvent('green-tech')">Register</button>
+            </div>
+        </section>
+
+        <section id="eco-quiz" class="container">
+            <h2>Eco Quiz</h2>
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <p>Which of the following is NOT a renewable energy source?</p>
+                </div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer('solar')">Solar</button>
+                    <button class="quiz-option" onclick="checkAnswer('wind')">Wind</button>
+                    <button class="quiz-option" onclick="checkAnswer('coal')">Coal</button>
+                    <button class="quiz-option" onclick="checkAnswer('geothermal')">Geothermal</button>
+                </div>
+                <div class="quiz-result" id="quizResult"></div>
+            </div>
+        </section>
+
+        <section id="shop" class="container">
+            <h2>Eco Shop</h2>
+            <div class="eco-shop">
+                <div class="shop-item">
+                    <img src="https://brownliving.in/cdn/shop/products/bamboo-stainless-steel-bottle-vaccum-insulated-double-wall-hot-cold-500ml-sustainable-products-on-brown-living-247182_600x.jpg?v=1688224999" alt="Reusable Water Bottle">
+                    <h3>Reusable Water Bottle</h3>
+                    <p>Durable and eco-friendly water bottle</p>
+                    <p class="price">950 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('water-bottle')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="https://www.kuberindustries.co.in/uploads/kuberindustries/products/kuber-industries-shopping-grocery-bags-foldable-washable-grocery-tote-bag-with-one-small-pocket-eco--5849236918578988_l.jpg" alt="Eco-friendly Tote Bag">
+                    <h3>Eco-friendly Tote Bag</h3>
+                    <p>Stylish and sustainable shopping bag</p>
+                    <p class="price">300 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('tote-bag')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="https://m.media-amazon.com/images/I/81MiYNnpJkL.jpg" alt="Solar Power Bank">
+                    <h3>Solar Power Bank</h3>
+                    <p>Charge your devices with solar energy</p>
+                    <p class="price">1500 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('solar-power-bank')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="data:image/jpeg;base64,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" alt="Eco Notebooks and Pens">
+                    <h3>Eco Notebooks and Pens</h3>
+                    <p>Made from recycled paper and sustainable materials.</p>
+                    <p class="price">500 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('Eco Notebooks and Pens')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="data:image/jpeg;base64,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" alt="Bamboo Toothbrushes">
+                    <h3>Bamboo Toothbrushes</h3>
+                    <p>An easy switch for a more sustainable daily habit with natural antibacterial properties</p>
+                    <p class="price">300 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('Bamboo Toothbrushes')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="data:image/jpeg;base64,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" alt="Recycled Fiber Beanies and Caps">
+                    <h3>Recycled Fiber Beanies and Caps</h3>
+                    <p>Stylish accessories made from repurposed materials.</p>
+                    <p class="price">400 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('solar-power-bank')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwRgs716l718LtjD9HfMIDCjHVaCdJuTyzAQ&s" alt="Flower pot">
+                    <h3>Flower pot</h3>
+                    <p>Flower Pot: Eco-friendly and perfect for growing plants indoors or outdoors.</p>
+                    <p class="price">400 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('Flower pot')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTjVSTRIsC60VOlEjuDLuKcZ8izrMI2N80ayrypoTXT3MjA-dUlTn82vkE4dnKVErYtjR2ZcF-mAq4x4qN6-RZLEcCxe-b1Dvnpb1ei3n_2aUKsubqHuSg7&usqp=CAE" alt="Sun flower seeds">
+                    <h3>sun flower seeds</h3>
+                    <p>  Easy to grow, these cheerful flowers thrive in full sun and can reach impressive heights. </p>
+                    <p class="price"> 450 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('Sun flower seeds')">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTjVSTRIsC60VOlEjuDLuKcZ8izrMI2N80ayrypoTXT3MjA-dUlTn82vkE4dnKVErYtjR2ZcF-mAq4x4qN6-RZLEcCxe-b1Dvnpb1ei3n_2aUKsubqHuSg7&usqp=CAE" alt="Sun flower seeds">
+                    <h3>sun flower seeds</h3>
+                    <p>  Easy to grow, these cheerful flowers thrive in full sun and can reach impressive heights. </p>
+                    <p class="price"> 450 EcoCredits</p>
+                    <button class="buy-button" onclick="buyItem('Sun flower seeds')">Buy</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="friends" class="container">
+            <h2>Eco Friends</h2>
+            <div class="friends-list">
+                <div class="friend-card">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Sarah" class="friend-avatar">
+                    <h3 class="friend-name">Sarah</h3>
+                    <p class="friend-level">Level 5 Eco Warrior</p>
+                    <button class="friend-action" onclick="challengeFriend('sarah')">Challenge</button>
+                </div>
+                <div class="friend-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Michael" class="friend-avatar">
+                    <h3 class="friend-name">Michael</h3>
+                    <p class="friend-level">Level 7 Green Guru</p>
+                    <button class="friend-action" onclick="challengeFriend('michael')">Challenge</button>
+                </div>
+                <div class="friend-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Emily" class="friend-avatar">
+                    <h3 class="friend-name">Emily</h3>
+                    <p class="friend-level">Level 3 Eco Enthusiast</p>
+                    <button class="friend-action" onclick="challengeFriend('emily')">Challenge</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="carbon-calculator" class="container">
+            <h2>Carbon Footprint Calculator</h2>
+            <form id="carbon-form">
+                <label for="electricity">Monthly Electricity Usage (kWh):</label>
+                <input type="number" id="electricity" name="electricity" required>
+
+                <label for="gas">Monthly Natural Gas Usage (therms):</label>
+                <input type="number" id="gas" name="gas" required>
+
+                <label for="car">Monthly Car Mileage:</label>
+                <input type="number" id="car" name="car" required>
+
+                <button type="submit">Calculate</button>
+            </form>
+            <div id="carbon-result"></div>
+        </section>
+
+        <section id="achievement-timeline" class="container">
+            <h2>Your Eco Journey</h2>
+            <div class="achievement-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">March 15, 2024</div>
+                    <div class="timeline-content">
+                        <h3>Joined EcoSphere</h3>
+                        <p>You took your first step towards a greener lifestyle!</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">March 20, 2024</div>
+                    <div class="timeline-content">
+                        <h3>First Tree Planted</h3>
+                        <p>You contributed to reforestation efforts by planting your first tree.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">April 1, 2024</div>
+                    <div class="timeline-content">
+                        <h3>Level 5 Achieved</h3>
+                        <p>Your consistent eco-friendly actions have paid off!</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">April 10, 2024</div>
+                    <div class="timeline-content">
+                        <h3>100kg of Carbon Offset</h3>
+                        <p>Your efforts have made a significant impact on reducing carbon emissions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EcoSphere. Gamifying eco-friendly living for a better planet.</p>
+    </footer>
+
+    <div class="floating-menu">
+        <button class="floating-button" onclick="openWindow('challenge')">🌿</button>
+        <button class="floating-button" onclick="openWindow('snap')">📸</button>
+        <button class="floating-button" onclick="openSat('certificate.html')">🏅</button>
+        <button class="floating-button" onclick="openSat('notification.html')">💬</button>
+    </div>
+
+    <div id="challengeWindow" class="window">
+        <div class="window-header">
+            <span class="window-title">Start a New Eco Challenge</span>
+            <button class="window-close" onclick="closeWindow('challenge')">&times;</button>
+        </div>
+        <div class="window-content">
+            <form id="challenge-form">
+                <input type="text" id="challenge-name" placeholder="Challenge Name" required>
+                <select id="challenge-duration" required>
+                    <option value="">Select Duration</option>
+                    <option value="7">1 Week</option>
+                    <option value="30">1 Month</option>
+                    <option value="90">3 Months</option>
+                </select>
+                <button type="submit" class="action-button">Create Challenge</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="snapWindow" class="window">
+        <div class="window-header">
+            <span class="window-title">Snap Your Eco Action</span>
+            <button class="window-close" onclick="closeWindow('snap')">&times;</button>
+        </div>
+        <div class="window-content">
+            <video id="camera-feed" autoplay></video>
+            <img id="snap-photo" alt="Snapped photo">
+            <form id="snap-form">
+                <select id="snap-action" required>
+                    <option value="">Select Action</option>
+                    <option value="cycle">Cycled to Work</option>
+                    <option value="reusable">Used Reusable Bag</option>
+                    <option value="compost">Composted Waste</option>
+                    <option value="plant">Planted a Tree</option>
+                    <option value="solar">Used Solar Energy</option>
+                    <option value="meatless">Meatless Day</option>
+                </select>
+                <button type="button" class="action-button" onclick="snapPhoto()">Take Photo</button>
+                <button type="submit" class="action-button">Submit Action</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="notification"></div>
+</body>
+</html>
